@@ -32,15 +32,27 @@ for (let i = 0; i < 10; i++) {
 // More often, you'll see it written like this...
 
 
-// for (let i = 0; i < 10; i++) {
-//     new Promise((resolve, reject) => {
-//         res = Math.random() > 0.5;
-//         if (res) resolve();
-//         else reject();
-//     }).then(
-//         () => {console.log("Heads!")}, 
-//         () => {console.log("Tails!")}
-//     );
-// }
+for (let i = 0; i < 10; i++) {
+    new Promise((resolve, reject) => {
+        res = Math.random() > 0.5;
+        if (res) resolve();
+        else reject();
+    }).then(
+        () => {console.log("Heads!")}, 
+        () => {console.log("Tails!")}
+    );
+}
 
 
+//////////////////////////////////////////
+// And even more often, the Promise will be what is returned by a function
+
+
+function waitABit(aBitInMS) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {resolve()}, aBitInMS);
+    });
+}
+
+let start = Date.now();
+waitABit(1000).then(() => {console.log("I waited " + (Date.now() - start) + " ms")});
